@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Barebones.MasterServer;
 using UnityEngine;
-using UnityEngine.Networking;
+using Mirror;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -62,16 +62,15 @@ public class StartSpawnedServerExample : MonoBehaviour
         var data = controller.Properties;
 
         // You can start any kind of server here.
-        // For example, we'll start Unet HLAPI server
+        // For example, we'll start a Mirror Server
 
         var networkManager = FindObjectOfType<NetworkManager>();
 
-        // If an arg was provided to use websockets
-        if (Msf.Args.IsProvided(Msf.Args.Names.WebGl))
-            networkManager.useWebSockets = true;
+        // Get the default mirror transport layer 
+        var transport = networkManager.GetComponent<kcp2k.KcpTransport>();
 
         // Spawner added an argument with assigned port number that we can use
-        networkManager.networkPort = Msf.Args.AssignedPort;
+        transport.Port = (ushort)Msf.Args.AssignedPort;
 
         // Start the server
         networkManager.StartServer();
@@ -87,9 +86,8 @@ public class StartSpawnedServerExample : MonoBehaviour
         {
             IsPublic = true,
             Properties = new Dictionary<string, string>(),
-            RoomPort = networkManager.networkPort, // or Msf.Args.AssignedPort
+            RoomPort = Msf.Args.AssignedPort,
             RoomIp = Msf.Args.MachineIp // Spawner should have passed us his own IP
-
         };
 
         // We can read some of the options from what player provided

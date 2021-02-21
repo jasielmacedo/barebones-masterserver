@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
-
+using Mirror;
 public class MiniCoin : NetworkBehaviour
 {
     private readonly float _reapperDistance = 8f;

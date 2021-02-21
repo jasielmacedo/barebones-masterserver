@@ -4,7 +4,6 @@ using System.Runtime.Remoting.Messaging;
 using Barebones.Logging;
 using Barebones.Networking;
 using UnityEngine;
-using UnityEngine.Networking.NetworkSystem;
 
 namespace Barebones.MasterServer
 {

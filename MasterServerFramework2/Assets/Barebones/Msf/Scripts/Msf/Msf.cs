@@ -298,7 +298,7 @@ namespace Barebones.MasterServer
             }
 
             /// <summary>
-            /// Creates a message by serializing a standard Unet message
+            /// Creates a message by serializing a standard Mirror message
             /// </summary>
             /// <param name="opCode"></param>
             /// <param name="message"></param>
@@ -348,12 +348,15 @@ namespace Barebones.MasterServer
 
             private IEnumerator GetPublicIPCoroutine(Action<string> callback)
             {
-                var req = new WWW("http://checkip.dyndns.org");
-                yield return req;
-                var ip = req.text;
-                ip = ip.Substring(ip.IndexOf(":") + 1);
-                ip = ip.Substring(0, ip.IndexOf("<"));
-                callback.Invoke(ip);
+                using(UnityWebRequest req = UnityWebRequest.Get("http://checkip.dyndns.org"))
+                {
+                    yield return req.SendWebRequest();
+                    var ip = req.downloadHandler.text;
+                    ip = ip.Substring(ip.IndexOf(":") + 1);
+                    ip = ip.Substring(0, ip.IndexOf("<"));
+                    callback.Invoke(ip);
+                }
+                
             }
         }
     }

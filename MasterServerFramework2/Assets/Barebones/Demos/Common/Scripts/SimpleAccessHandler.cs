@@ -18,7 +18,7 @@ public class SimpleAccessHandler : MonoBehaviour
     private void OnAccessReceived(RoomAccessPacket access)
     {
         // Set the access
-        UnetRoomConnector.RoomAccess = access;
+        MirrorRoomConnector.RoomAccess = access;
 
         if (LoadSceneIfFound && access.Properties.ContainsKey(MsfDictKeys.SceneName))
         {
@@ -31,7 +31,7 @@ public class SimpleAccessHandler : MonoBehaviour
             else
             {
                 // If we're already at the correct scene
-                FindObjectOfType<UnetRoomConnector>().ConnectToGame(access);
+                FindObjectOfType<RoomConnector>().ConnectToGame(access);
             }
         }
     }

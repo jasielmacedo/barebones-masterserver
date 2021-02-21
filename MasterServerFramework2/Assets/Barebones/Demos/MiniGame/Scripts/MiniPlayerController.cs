@@ -4,8 +4,7 @@ using System.Linq;
 using Barebones.MasterServer;
 using Barebones.Utils;
 using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.Networking.NetworkSystem;
+using Mirror;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -139,14 +138,14 @@ public class MiniPlayerController : NetworkBehaviour
         transform.position = spawn.transform.position;
     }
 
-    public void OnWeaponChange(string name)
+    public void OnWeaponChange(string _, string name)
     {
         WeaponSpriteName = name;
 
         SetWeapon(name);
     }
 
-    public void OnFlagChange(string color)
+    public void OnFlagChange(string _, string color)
     {
         FlagColor = color;
 
@@ -181,7 +180,7 @@ public class MiniPlayerController : NetworkBehaviour
         Flag.GetComponent<MeshRenderer>().material.color = BmHelper.HexToColor(color);
     }
 
-    public void OnCoinsChange(int coins)
+    public void OnCoinsChange(int _, int coins)
     {
         if (!isLocalPlayer)
             return;

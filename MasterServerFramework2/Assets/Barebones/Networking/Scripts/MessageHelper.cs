@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using UnityEngine.Networking;
+using Mirror;
 
 namespace Barebones.Networking
 {
@@ -121,15 +121,15 @@ namespace Barebones.Networking
         }
 
         /// <summary>
-        /// Serializes a standard uNet message
+        /// Serializes a standard Mirror message
         /// </summary>
         /// <param name="opCode"></param>
         /// <param name="message"></param>
         /// <returns></returns>
         public static IMessage Create(short opCode, MessageBase message)
         {
-            _writer.SeekZero();
-            message.Serialize(_writer);
+            _writer.Reset();
+            _writer.Write(message);
             return _factory.Create(opCode, _writer.ToArray());
         }
 

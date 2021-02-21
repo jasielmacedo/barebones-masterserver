@@ -1,13 +1,12 @@
 ﻿using System;
 using Barebones.MasterServer;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Barebones.Utils
 {
     public class BmHelper
     {
-        public const int MaxUnetConnections = 500;
+        public const int MaxMirrorConnections = 500;
 
         /// <summary>
         /// Creates a random string of a given length.
@@ -34,14 +33,5 @@ namespace Barebones.Utils
             byte b = byte.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
             return new Color32(r, g, b, 255);
         }
-
-        public static ConnectionConfig CreateDefaultConnectionConfig()
-        {
-            var config = new ConnectionConfig();
-            config.AddChannel(QosType.ReliableSequenced);
-            config.AddChannel(QosType.Unreliable);
-            return config;
-        }
-
     }
 }

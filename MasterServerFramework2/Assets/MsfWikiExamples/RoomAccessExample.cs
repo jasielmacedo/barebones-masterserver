@@ -2,8 +2,7 @@
 using System.Collections;
 using Barebones.MasterServer;
 using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.Networking.NetworkSystem;
+using Mirror;
 
 public class RoomAccessExample : MonoBehaviour
 {
@@ -27,10 +26,13 @@ public class RoomAccessExample : MonoBehaviour
             return;
         }
 
-        // We can use it to connect to Unet game server (this is just an example)
+        // We can use it to connect to Mirror game server (this is just an example)
         var networkManager = FindObjectOfType<NetworkManager>();
         networkManager.networkAddress = access.RoomIp;
-        networkManager.networkPort = access.RoomPort;
+
+        // using the default mirror transport layer
+        var transport = networkManager.GetComponent<kcp2k.KcpTransport>();
+        transport.Port = (ushort)access.RoomPort;
 
         // Start connecting
         networkManager.StartClient();
@@ -41,11 +43,8 @@ public class RoomAccessExample : MonoBehaviour
         // Wait until connected to server
         WaitConnectionCoroutine = StartCoroutine(WaitForConnection(() =>
         {
-            // Client connected to server
-            var tokenMsg = new StringMessage(access.Token);
-
-            // Send the token to unet server
-            networkManager.client.connection.Send(777, tokenMsg);
+            // Send the token to Mirror server
+            NetworkClient.connection.Send<TokenMessage>(new TokenMessage(access.Token));
         }));
     }
 
@@ -54,7 +53,7 @@ public class RoomAccessExample : MonoBehaviour
         var networkManager = FindObjectOfType<NetworkManager>();
 
         // This will keep skipping frames until client connects
-        while (!networkManager.IsClientConnected())
+        while (!NetworkClient.isConnected)
             yield return null;
 
         callback.Invoke();

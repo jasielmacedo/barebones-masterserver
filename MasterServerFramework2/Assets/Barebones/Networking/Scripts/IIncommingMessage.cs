@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
+using Mirror;
 
 namespace Barebones.Networking
 {
@@ -75,7 +75,7 @@ namespace Barebones.Networking
         void Respond(ISerializablePacket packet, ResponseStatus statusCode = ResponseStatus.Default);
 
         /// <summary>
-        /// Respons with standard Unet message
+        /// Respons with standard Mirror message
         /// </summary>
         /// <param name="packet"></param>
         /// <param name="statusCode"></param>
@@ -133,7 +133,7 @@ namespace Barebones.Networking
         T Deserialize<T>(T packetToBeFilled) where T : ISerializablePacket;
 
         /// <summary>
-        /// Deserializes as a standard uNet message
+        /// Deserializes as a standard Mirror message
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -148,7 +148,7 @@ namespace Barebones.Networking
         IEnumerable<T> DeserializeList<T>(Func<T> packetCreator) where T : ISerializablePacket;
 
         /// <summary>
-        ///     Uses content of the message to generate a list of uNet messages
+        ///     Uses content of the message to generate a list of Mirror messages
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="packetCreator"></param>

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Barebones.MasterServer;
 using UnityEngine;
-using UnityEngine.Networking;
+using Mirror;
 using UnityEngine.SceneManagement;
 
 public class StartSpawnedServerUnsafe : MonoBehaviour
@@ -32,10 +32,10 @@ public class StartSpawnedServerUnsafe : MonoBehaviour
     {
         var networkManager = FindObjectOfType<NetworkManager>();
 
-        if (Msf.Args.IsProvided(Msf.Args.Names.WebGl))
-            networkManager.useWebSockets = true;
+        // Get the default mirror transport layer 
+        var transport = networkManager.GetComponent<kcp2k.KcpTransport>();
+        transport.Port = (ushort)Msf.Args.AssignedPort;
 
-        networkManager.networkPort = Msf.Args.AssignedPort;
         networkManager.StartServer();
 
         RegisterRoomAndFinalize(networkManager, controller);
@@ -48,7 +48,7 @@ public class StartSpawnedServerUnsafe : MonoBehaviour
         {
             IsPublic = true,
             Properties = new Dictionary<string, string>(),
-            RoomPort = networkManager.networkPort, // or Msf.Args.AssignedPort
+            RoomPort = Msf.Args.AssignedPort,
             RoomIp = Msf.Args.MachineIp // Spawner should have passed us his own IP
         };
 

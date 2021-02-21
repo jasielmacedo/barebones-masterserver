@@ -1,4 +1,4 @@
-﻿using UnityEngine.Networking;
+﻿using Mirror;
 
 namespace Barebones.Networking
 {
@@ -15,10 +15,10 @@ namespace Barebones.Networking
         void SendMessage(short opCode, ISerializablePacket packet, ResponseCallback responseCallback);
         void SendMessage(short opCode, ISerializablePacket packet, ResponseCallback responseCallback, int timeoutSecs);
 
-        void SendMessage(short opCode, MessageBase unetMsg);
-        void SendMessage(short opCode, MessageBase unetMsg, DeliveryMethod method);
-        void SendMessage(short opCode, MessageBase unetMsg, ResponseCallback responseCallback);
-        void SendMessage(short opCode, MessageBase unetMsg, ResponseCallback responseCallback, int timeoutSecs);
+        void SendMessage(short opCode, MessageBase netMsg);
+        void SendMessage(short opCode, MessageBase netMsg, DeliveryMethod method);
+        void SendMessage(short opCode, MessageBase netMsg, ResponseCallback responseCallback);
+        void SendMessage(short opCode, MessageBase netMsg, ResponseCallback responseCallback, int timeoutSecs);
 
         void SendMessage(short opCode, ResponseCallback responseCallback);
 

@@ -2,11 +2,11 @@
 using System.Linq;
 using Barebones.MasterServer;
 using UnityEngine;
-using UnityEngine.Networking;
+using Mirror;
 
 public class MiniNetworkManager : NetworkManager
 {
-    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
+    public override void OnServerAddPlayer(NetworkConnection conn)
     {
         SpawnPlayer(conn, "Player", "carrot");
     }
@@ -31,7 +31,7 @@ public class MiniNetworkManager : NetworkManager
             player.transform.position = position.position;
         }
 
-        NetworkServer.AddPlayerForConnection(connection, player.gameObject, 0);
+        NetworkServer.AddPlayerForConnection(connection, player.gameObject, player.netIdentity.assetId);
         player.SetWeapon(weaponSprite);
         player.Setup(playerName);
 

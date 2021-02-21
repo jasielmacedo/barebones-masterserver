@@ -13,7 +13,6 @@ public class EmilsTestClient : MonoBehaviour {
 
     public string ServerIpAddress = "127.0.0.1";
     public int Port = 777;
-    public bool UseWs = true;
     public bool AutoStartClient = true;
 
     private IClientSocket _client;
@@ -31,9 +30,8 @@ public class EmilsTestClient : MonoBehaviour {
 
     private void StartClient()
     {
-        if (UseWs)
-            _client = new ClientSocketWs();
-        else _client = new ClientSocketUnet();
+        // assuming websocket as default
+        _client = new ClientSocketWs();
 
         _client.Connected += Connected;
         _client.Disconnected += Disconnected;
@@ -46,8 +44,6 @@ public class EmilsTestClient : MonoBehaviour {
     private void ParseCommandLineArguments()
     {
         AutoStartClient = Msf.Args.IsProvided("-startClient") ? true : AutoStartClient;
-        UseWs = Msf.Args.IsProvided("-useWs") ? true : UseWs;
-        UseWs = !Msf.Args.IsProvided("-useUnet") ? false : UseWs;
 
         if (Msf.Args.IsProvided("-port"))
         {

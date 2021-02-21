@@ -9,7 +9,6 @@ using UnityEngine;
 /// </summary>
 public class EmilsTestServer : MonoBehaviour {
     public int port = 777;
-    public bool useWs = true;
     public bool sendMessages = false;
     public bool startServer = false;
 
@@ -31,8 +30,6 @@ public class EmilsTestServer : MonoBehaviour {
     private void ParseCommandLineArguments()
     {
         startServer = Msf.Args.IsProvided("-startServer") ? true : startServer;
-        useWs = Msf.Args.IsProvided("-useWs") ? true : useWs;
-        useWs = !Msf.Args.IsProvided("-useUnet") ? false : useWs;
         sendMessages = Msf.Args.IsProvided("-sendMessages") ? true : sendMessages;
 
         if (Msf.Args.IsProvided("-port"))
@@ -49,10 +46,8 @@ public class EmilsTestServer : MonoBehaviour {
     {
         _clients = new List<IPeer>();
 
-        if (useWs)
-            _server = new ServerSocketWs();
-        else
-            _server = new ServerSocketUnet();
+        // assuming WebSocket as default connection
+        _server = new ServerSocketWs();
 
         _server.Connected += ClientConnected;
         _server.Disconnected += ClientDisconnected;

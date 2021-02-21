@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using UnityEngine.Networking;
+﻿#if MIRROR
+using UnityEngine;
+using Mirror;
 
 /// <summary>
 /// This script represents the changes that you will need to do in your custom
@@ -8,10 +9,12 @@ using UnityEngine.Networking;
 public class ModifiedNetworkManager : NetworkManager
 {
     // Set this in the inspector
-    public UnetGameRoom GameRoom;
+    public MirrorGameRoom GameRoom;
 
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
+
         if (GameRoom == null)
         {
             Debug.LogError("Game Room property is not set on NetworkManager");
@@ -23,16 +26,15 @@ public class ModifiedNetworkManager : NetworkManager
         GameRoom.PlayerLeft += OnPlayerLeft;
     }
 
-    private void OnPlayerJoined(UnetMsfPlayer player)
+    private void OnPlayerJoined(NetMsfPlayer player)
     {
-        // Spawn the player object (https://docs.unity3d.com/Manual/UNetPlayers.html)
-        // This is just a dummy example, you'll need to create your own object (or not)
         var playerGameObject = new GameObject();
-        NetworkServer.AddPlayerForConnection(player.Connection, playerGameObject, 0);
+        NetworkServer.AddPlayerForConnection(player.Connection, playerGameObject);
     }
 
-    private void OnPlayerLeft(UnetMsfPlayer player)
+    private void OnPlayerLeft(NetMsfPlayer player)
     {
     }
     
 }
+#endif

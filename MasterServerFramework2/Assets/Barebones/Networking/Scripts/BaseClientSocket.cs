@@ -1,4 +1,4 @@
-﻿using UnityEngine.Networking;
+﻿using Mirror;
 
 namespace Barebones.Networking
 {
@@ -35,28 +35,28 @@ namespace Barebones.Networking
             Peer.SendMessage(msg, responseCallback, timeoutSecs);
         }
 
-        #region Unet messages
+        #region Mirror messages
 
-        public void SendMessage(short opCode, MessageBase unetMsg)
+        public void SendMessage(short opCode, MessageBase netMsg)
         {
-            SendMessage(opCode, unetMsg, DeliveryMethod.Reliable);
+            SendMessage(opCode, netMsg, DeliveryMethod.Reliable);
         }
 
-        public void SendMessage(short opCode, MessageBase unetMsg, DeliveryMethod method)
+        public void SendMessage(short opCode, MessageBase netMsg, DeliveryMethod method)
         {
-            var msg = MessageHelper.Create(opCode, unetMsg);
+            var msg = MessageHelper.Create(opCode, netMsg);
             Peer.SendMessage(msg, method);
         }
 
-        public void SendMessage(short opCode, MessageBase unetMsg, ResponseCallback responseCallback)
+        public void SendMessage(short opCode, MessageBase netMsg, ResponseCallback responseCallback)
         {
-            var msg = MessageHelper.Create(opCode, unetMsg);
+            var msg = MessageHelper.Create(opCode, netMsg);
             Peer.SendMessage(msg, responseCallback);
         }
 
-        public void SendMessage(short opCode, MessageBase unetMsg, ResponseCallback responseCallback, int timeoutSecs)
+        public void SendMessage(short opCode, MessageBase netMsg, ResponseCallback responseCallback, int timeoutSecs)
         {
-            var msg = MessageHelper.Create(opCode, unetMsg);
+            var msg = MessageHelper.Create(opCode, netMsg);
             Peer.SendMessage(msg, responseCallback, timeoutSecs);
         }
 

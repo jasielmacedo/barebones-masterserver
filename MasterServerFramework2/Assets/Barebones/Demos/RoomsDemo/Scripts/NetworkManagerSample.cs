@@ -1,17 +1,19 @@
 ﻿using Barebones.MasterServer;
 using UnityEngine;
-using UnityEngine.Networking;
+using Mirror;
 
 /// <summary>
 /// This is a small network manager example, which shows you how you can use the
-/// <see cref="UnetGameRoom"/>
+/// <see cref="MirrorGameRoom"/>
 /// </summary>
 public class NetworkManagerSample : NetworkManager
 {
-    public UnetGameRoom GameRoom;
+    public MirrorGameRoom GameRoom;
 
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
+
         if (GameRoom == null)
         {
             Debug.LogError("Game Room property is not set on NetworkManager");
@@ -24,7 +26,7 @@ public class NetworkManagerSample : NetworkManager
     }
 
     /// <summary>
-    /// Regular Unet method, which get's called when client disconnects from game server
+    /// Regular Mirror method, which get's called when client disconnects from game server
     /// </summary>
     /// <param name="conn"></param>
     public override void OnServerDisconnect(NetworkConnection conn)
@@ -39,7 +41,7 @@ public class NetworkManagerSample : NetworkManager
     /// Invoked, when client provides a successful access token and enters the room
     /// </summary>
     /// <param name="player"></param>
-    private void OnPlayerJoined(UnetMsfPlayer player)
+    private void OnPlayerJoined(NetMsfPlayer player)
     {
         // -----------------------------------
         // IF all you want to do is spawn a player:
@@ -78,7 +80,7 @@ public class NetworkManagerSample : NetworkManager
         });
     }
 
-    private void OnPlayerLeft(UnetMsfPlayer player)
+    private void OnPlayerLeft(NetMsfPlayer player)
     {
         
     }

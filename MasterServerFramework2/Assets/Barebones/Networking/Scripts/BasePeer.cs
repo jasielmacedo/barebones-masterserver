@@ -89,25 +89,25 @@ namespace Barebones.Networking
             SendMessage(message, responseCallback, timeoutSecs, DeliveryMethod.Reliable);
         }
 
-        public void SendMessage(short opCode, MessageBase unetMsg)
+        public void SendMessage(short opCode, MessageBase netMsg)
         {
-            SendMessage(MessageHelper.Create(opCode, unetMsg), DeliveryMethod.Reliable);
+            SendMessage(MessageHelper.Create(opCode, netMsg), DeliveryMethod.Reliable);
         }
 
-        public void SendMessage(short opCode, MessageBase unetMsg, DeliveryMethod method)
+        public void SendMessage(short opCode, MessageBase netMsg, DeliveryMethod method)
         {
-            SendMessage(MessageHelper.Create(opCode, unetMsg), method);
+            SendMessage(MessageHelper.Create(opCode, netMsg), method);
         }
 
-        public void SendMessage(short opCode, MessageBase unetMsg, ResponseCallback responseCallback)
+        public void SendMessage(short opCode, MessageBase netMsg, ResponseCallback responseCallback)
         {
-            var message = MessageHelper.Create(opCode, unetMsg);
+            var message = MessageHelper.Create(opCode, netMsg);
             SendMessage(message, responseCallback);
         }
 
-        public void SendMessage(short opCode, MessageBase unetMsg, ResponseCallback responseCallback, int timeoutSecs)
+        public void SendMessage(short opCode, MessageBase netMsg, ResponseCallback responseCallback, int timeoutSecs)
         {
-            var message = MessageHelper.Create(opCode, unetMsg);
+            var message = MessageHelper.Create(opCode, netMsg);
             SendMessage(message, responseCallback, timeoutSecs);
         }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Barebones.MasterServer;
 using Barebones.Networking;
 using UnityEngine;
-using UnityEngine.Networking.NetworkSystem;
+using Mirror;
 
 public class TestScript : MonoBehaviour, ILobbyListener {
 
@@ -17,9 +17,6 @@ public class TestScript : MonoBehaviour, ILobbyListener {
     private void OnConnected()
     {
         Msf.Client.Auth.LogInAsGuest(((successful, error) => { }));
-
-        // Sending a Unet messages (instances of MessageBase) to server
-        Msf.Connection.SendMessage(777, new IntegerMessage(5));
 
         // Sending a string message to server, and expecting for response
         Msf.Connection.SendMessage(777, "My message", (status, response) =>

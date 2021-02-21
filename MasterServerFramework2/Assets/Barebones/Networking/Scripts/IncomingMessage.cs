@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UnityEngine.Networking;
+using Mirror;
 
 namespace Barebones.Networking
 {
@@ -183,7 +183,7 @@ namespace Barebones.Networking
         public T Deserialize<T>() where T : MessageBase, new()
         {
             var reader = new NetworkReader(_data);
-            return reader.ReadMessage<T>();
+            return reader.Read<T>();
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace Barebones.Networking
         }
 
         /// <summary>
-        /// Deserializes a list of standard uNet messages
+        /// Deserializes a list of standard Mirror messages
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -211,7 +211,7 @@ namespace Barebones.Networking
 
             for (int i = 0; i < count; i++)
             {
-                list.Add(reader.ReadMessage<T>());
+                list.Add(reader.Read<T>());
             }
 
             return list;

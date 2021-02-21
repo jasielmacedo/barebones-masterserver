@@ -4,7 +4,7 @@ using Barebones.MasterServer;
 using Barebones.Networking;
 using UnityEngine;
 
-public class WorldDemoZoneRoom : UnetGameRoom {
+public class WorldDemoZoneRoom : MirrorGameRoom {
 
     private HashSet<string> _pendingTeleportationRequests;
 
@@ -82,7 +82,7 @@ public class WorldDemoZoneRoom : UnetGameRoom {
         options.Properties[WorldDemoModule.ZoneNameKey] = ZoneId;
     }
 
-    public virtual void TeleportPlayerToAnotherZone(UnetMsfPlayer player, string zoneName, Vector3 newPos)
+    public virtual void TeleportPlayerToAnotherZone(NetMsfPlayer player, string zoneName, Vector3 newPos)
     {
         // Ignore if there's already a request pending
         if (_pendingTeleportationRequests.Contains(player.Username))
